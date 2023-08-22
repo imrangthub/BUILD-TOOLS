@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+group = PROJECT_GROUP
+version = PROJECT_VERSION
+description = PROJECT_DESCRIPTION
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    options.encoding = "UTF-8"
+}
+
+compileTestJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    options.encoding = "UTF-8"
+    options.compilerArgs += "-parameters"
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.imran.SimpleApplication'
+    }
+}
+wrapper {
+    gradleVersion = GRADLE_VERSION
+    distributionUrl = WRAPPER_ROOT + "/${gradleVersion}/gradle-wrapper-${gradleVersion}-bin.zip"
+}
+tasks.build.doLast {
+    def jarFilePath = file("${project.buildDir}${File.separator}libs${File.separator}${PROJECT_ARTIFACT}-${PROJECT_VERSION}.jar")
+    println "\u001B[92mBuildJarLocation:\u001B[0m\n" + "-" * (17) + "\n" + jarFilePath
+}
