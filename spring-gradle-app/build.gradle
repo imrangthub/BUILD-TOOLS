@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.2'
+	id 'io.spring.dependency-management' version '1.1.2'
+}
+group = PROJECT_GROUP
+version = PROJECT_VERSION
+description = PROJECT_DESCRIPTION
+
+compileJava {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+	options.encoding = "UTF-8"
+}
+
+compileTestJava {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+	options.encoding = "UTF-8"
+	options.compilerArgs += "-parameters"
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+}
+
+wrapper {
+	gradleVersion = GRADLE_VERSION
+	distributionUrl = WRAPPER_ROOT + "/${gradleVersion}/gradle-wrapper-${gradleVersion}-bin.zip"
+}
+tasks.build.doLast {
+	def jarFilePath = file("${project.buildDir}${File.separator}libs${File.separator}${PROJECT_ARTIFACT}-${PROJECT_VERSION}.jar")
+	println "\u001B[92mBuildJarLocation:\u001B[0m\n" + "-" * (17) + "\n" + jarFilePath
+}
