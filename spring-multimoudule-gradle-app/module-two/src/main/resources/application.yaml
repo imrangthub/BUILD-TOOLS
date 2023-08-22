@@ -1,0 +1,14 @@
+server:
+  port: ${PORT:8082}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default | dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
